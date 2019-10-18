@@ -2,6 +2,7 @@ package programgames.DenisSurSaYuumi;
 
 import org.apache.commons.cli.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
@@ -20,6 +21,7 @@ public class Server {
 
     public static void main(String[] args) {
 
+        System.out.println("Starting server");
         initArguments(args);
 
         try {
@@ -67,7 +69,7 @@ public class Server {
         try {
 
             while ((inputLine = bufferedReader.readLine()) != null) {
-                executeKey(inputLine);
+                executeKey(inputLine.charAt(0));
             }
 
 
@@ -84,17 +86,17 @@ public class Server {
         System.out.println("close");
     }
 
-    private static void executeKey(String inputLine) {
-
-        if(inputLine.equals("A"))
+    private static void executeKey(char inputLine) {
+        if(inputLine == 'A')
         {
             robot.keyPress(KeyEvent.VK_A);
             robot.keyRelease(KeyEvent.VK_A);
         }
+
     }
 
     private static void initServer() throws IOException {
-        serverSocket = new ServerSocket(Integer.parseInt(cmd.getOptionValue("ip")));
+        serverSocket = new ServerSocket(Integer.parseInt(cmd.getOptionValue("port")));
         clientSocket = serverSocket.accept();
         bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     }
